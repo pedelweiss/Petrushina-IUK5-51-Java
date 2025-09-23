@@ -1,6 +1,7 @@
 package ru.bmstu.service;
 
 import ru.bmstu.domain.Person;
+import ru.bmstu.domain.Student;
 
 public class PersonDemo {
 
@@ -11,15 +12,20 @@ public class PersonDemo {
     }
 
     public void demo() {
-        System.out.println("====== НАЧАЛО ДЕМОНСТРАЦИИ ======");
+        System.out.println("Запуск демонстрации для объекта Person...");
         PersonPrinter.printFI(this.person);
         PersonPrinter.printInfo(this.person);
+        System.out.println("Демонстрация завершена.");
+    }
+
+    public static void demo1() {
+        System.out.println("Запуск демонстрации для объекта Student...");
+        Student student = new Student("Иван", "Сидоров", 20, "555-0202", "ИУК5-31Б", 2);
 
         System.out.println("\n--- Демонстрация интерфейса Dismissable ---");
-        Dismissable universityAdmin = new Dismissable() {};
+        Dismissable universityAdmin = new StudentDismisser();
+        universityAdmin.dismiss(student);
 
-        universityAdmin.dismiss(this.person); // Отчисляем "главного"
-
-        System.out.println("\n====== КОНЕЦ ДЕМОНСТРАЦИИ ======");
+        System.out.println("Демонстрация завершена.");
     }
 }
