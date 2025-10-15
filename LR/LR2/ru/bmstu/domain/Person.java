@@ -13,9 +13,9 @@ public class Person {
         this.age = age;
     }
 
-    public Person(String firstName, String secondName, int age, String phone) {
+    public Person(String firstName, String secondName, int age, String phone) throws InvalidPhoneNumberException {
         this(firstName, secondName, age);
-        this.phone = phone;
+        this.setPhone(phone);
     }
 
     public String getFirstName() {
@@ -38,7 +38,16 @@ public class Person {
         this.age = age;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(String phone) throws InvalidPhoneNumberException {
+        // ^ - начало строки
+        // \+? - необязательный символ "+" в начале
+        // [0-9]{11} - ровно 11 цифр
+        // $ - конец строки
+        if (phone != null && phone.matches("^\\+?[0-9]{11}$")) {
+            this.phone = phone;
+        } else {
+            throw new InvalidPhoneNumberException("Некорректный формат номера телефона: " + phone +
+                    ". Ожидается 11 цифр, возможно с '+' в начале.");
+        }
     }
 }
